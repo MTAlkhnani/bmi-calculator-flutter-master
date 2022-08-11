@@ -1,17 +1,25 @@
+import 'package:bmi_calculator/results_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Gen_Cont.dart';
 import 'My_Card.dart';
 import 'constants.dart';
+import 'results_page.dart';
 
 enum Gender {
   male,
   female,
 }
 
-int height = 170;
-int weight = 60;
+double height = 170;
+double weight = 60;
 int age = 18;
+double bmi;
+
+String status;
+Color statusColor;
+String text;
 
 class InputPage extends StatefulWidget {
   @override
@@ -107,7 +115,7 @@ class _InputPageState extends State<InputPage> {
                     textBaseline: TextBaseline.alphabetic,
                     children: <Widget>[
                       Text(
-                        '$height',
+                        height.toInt().toString(),
                         style: kStyleOfNum,
                       ),
                       Text(
@@ -128,7 +136,7 @@ class _InputPageState extends State<InputPage> {
                       value: height.toDouble(),
                       onChanged: (double newValue) {
                         setState(() {
-                          height = newValue.round();
+                          height = newValue.round().toDouble();
                         });
                       },
                       min: 120,
@@ -157,7 +165,7 @@ class _InputPageState extends State<InputPage> {
                           style: kStyleOfText,
                         ),
                         Text(
-                          '$weight',
+                          weight.toInt().toString(),
                           style: kStyleOfNum,
                         ),
                         Row(
@@ -237,10 +245,30 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            color: Color(0xFFEB104D),
-            width: double.infinity,
-            height: 80,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((context) => Results())));
+              setState(() {
+                CalculateBMI bmiClass =
+                    CalculateBMI(height: height, weight: weight);
+                bmi = bmiClass.getBmi();
+                status = bmiClass.getStatus();
+                statusColor = bmiClass.getStatusColor();
+                text = bmiClass.getText();
+              });
+            },
+            child: Container(
+              color: Color(0xFFEB104D),
+              width: double.infinity,
+              height: 80,
+              child: Center(
+                child: Text(
+                  'CALCULATE',
+                  style: TextStyle(color: Colors.white, fontSize: 23),
+                ),
+              ),
+            ),
           ),
         ],
       ),
