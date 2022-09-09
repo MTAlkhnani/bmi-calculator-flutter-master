@@ -1,8 +1,9 @@
+import 'package:bmi_calculator/info_card.dart';
 import 'package:bmi_calculator/input_page.dart';
+import 'package:bmi_calculator/main.dart';
 import 'package:flutter/material.dart';
 import 'input_page.dart';
 import 'constants.dart';
-import 'input_page.dart';
 
 class Results extends StatelessWidget {
   const Results({Key key}) : super(key: key);
@@ -10,7 +11,7 @@ class Results extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('RESULTS'), automaticallyImplyLeading: false),
+      appBar: AppBar(title: Text('RESULT'), automaticallyImplyLeading: false),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -80,6 +81,44 @@ class Results extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    flex: 0,
+                    child: TextButton(
+                      onPressed: () {
+                        CalculateBMI bmiCalc = CalculateBMI();
+                        results.add(InfoCard(
+                          gender: gender,
+                          height: height,
+                          weight: weight,
+                          age: age,
+                          bmi: bmi,
+                          status: status,
+                        ));
+                        results.add(SizedBox(
+                          height: 5,
+                        ));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Color(0xFF4C4F5E),
+                        ),
+                        height: 50,
+                        width: 100,
+                        child: Center(
+                          child: Text(
+                            'Save Result',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -107,12 +146,7 @@ class Results extends StatelessWidget {
 }
 
 class CalculateBMI {
-  CalculateBMI(
-      {this.status,
-      @required this.height,
-      @required this.weight,
-      this.age,
-      this.gender});
+  CalculateBMI({this.status, this.height, this.weight, this.age, this.gender});
   String status;
   double height;
   double weight;
@@ -159,6 +193,10 @@ class CalculateBMI {
       text =
           'If your BMI is 25 or higher, it falls within the overweight range.';
     }
+    Gender getGender() {
+      return gender;
+    }
+
     return text;
   }
 }

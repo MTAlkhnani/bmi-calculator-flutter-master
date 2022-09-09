@@ -264,7 +264,7 @@ class _InputPageState extends State<InputPage> {
                 status = bmiClass.getStatus();
                 statusColor = bmiClass.getStatusColor();
                 text = bmiClass.getText();
-                gender = bmiClass.get
+                gender = selectedGender;
               });
             },
             child: Container(
