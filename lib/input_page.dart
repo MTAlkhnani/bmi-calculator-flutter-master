@@ -1,11 +1,11 @@
 import 'package:bmi_calculator/results_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Gen_Cont.dart';
 import 'My_Card.dart';
 import 'constants.dart';
 import 'results_page.dart';
+import 'info_card.dart';
 
 enum Gender {
   male,
@@ -16,10 +16,12 @@ double height = 170;
 double weight = 60;
 int age = 18;
 double bmi;
-
+Gender gender;
 String status;
 Color statusColor;
 String text;
+
+List<Widget> results = [];
 
 class InputPage extends StatefulWidget {
   @override
@@ -39,6 +41,12 @@ class _InputPageState extends State<InputPage> {
       appBar: AppBar(
         title: Text('BMI CALCULATOR'),
         backgroundColor: Color(0xFF101639),
+      ),
+      drawer: Drawer(
+        backgroundColor: Color(0xFF141A3C),
+        child: ListView(
+          children: results,
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -250,12 +258,13 @@ class _InputPageState extends State<InputPage> {
               Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => Results())));
               setState(() {
-                CalculateBMI bmiClass =
-                    CalculateBMI(height: height, weight: weight);
+                CalculateBMI bmiClass = CalculateBMI(
+                    height: height, weight: weight, gender: selectedGender);
                 bmi = bmiClass.getBmi();
                 status = bmiClass.getStatus();
                 statusColor = bmiClass.getStatusColor();
                 text = bmiClass.getText();
+                gender = bmiClass.get
               });
             },
             child: Container(
