@@ -1,6 +1,6 @@
 # BMI Calculator 
 
-## What I have learned building this app
+## What I have learned building this app:
 
 - How to use Flutter themes to create coherent branding. 
 - How to create multi-page apps using Flutter Routes and Navigator.
